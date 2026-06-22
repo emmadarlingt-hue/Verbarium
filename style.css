@@ -308,3 +308,20 @@ body {
   .word-expanded { margin: 0 20px 20px; padding: 22px; }
   .exp-word { font-size: 28px; }
 }
+/* ── Tablet ── */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .vb-header { padding: 24px 32px 18px; }
+  .vb-controls { padding: 14px 32px; }
+  .vb-grid { padding: 28px 32px; gap: 18px; }
+  .word-expanded { margin: 0 32px 28px; padding: 28px; }
+  .exp-word { font-size: 34px; }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1025px) {
+  .vb-header { padding: 32px 48px 22px; }
+  .vb-controls { padding: 16px 48px; }
+  .vb-grid { padding: 36px 48px; gap: 22px; }
+  .word-expanded { margin: 0 48px 36px; padding: 36px; }
+  .exp-word { font-size: 40px; }
+}
