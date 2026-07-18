@@ -1164,6 +1164,230 @@ const words = [
     etym: "A blend of flag (the proliferating banners of identity) and aggravation (Latin aggravare, 'to make heavier').",
     quote: "He supports every cause going; he just confesses to a touch of flaggravation at the gift shop, hunting for the right pin.",
     why: "It captures a gently comic, broadly shared experience without malice."
+  },
+  // ── Vol. VI · The Promptwrought Lexicon ──
+  // PASTE THIS INSIDE the existing words array:
+  // after the final }, of the last entry, and BEFORE the closing  ];
+
+{
+    word: "Misask",
+    pos: "noun & verb",
+    pron: "/mɪsˈɑːsk/",
+    vol: "VI",
+    tag: "Work",
+    def: "The gap between what one asked for and what one meant; to instruct a machine accurately in the wrong direction.",
+    etym: "From mis- (Old English, 'wrongly') + ask (Old English āscian, 'to seek'). Pure Anglo-Saxon; no seam.",
+    quote: "The output wasn't wrong -- my question was. A straight misask.",
+    why: "It relocates blame from the machine to the phrasing, which is the founding insight of the entire craft -- and it is short enough to be said in meetings."
+  },
+  {
+    word: "Promptbook",
+    pos: "noun",
+    pron: "/ˈprɒm(p)t.bʊk/",
+    vol: "VI",
+    tag: "Work",
+    def: "A personal, accumulated collection of proven instructions, kept and refined the way a cook keeps recipes; a promptwright's working grimoire.",
+    etym: "After playbook and spellbook -- but chiefly a revival: the prompt-book was a real object of the Victorian theatre, the stage manager's marked copy from which the play was actually run.",
+    quote: "Her promptbook is two years deep; the onboarding prompt alone has nineteen dated revisions.",
+    why: "The theatrical prompt-book genuinely existed, so this is less a coinage than a restoration -- the strongest kind of new word."
+  },
+  {
+    word: "Overwright",
+    pos: "verb",
+    pron: "/ˌəʊ.vəˈraɪt/",
+    vol: "VI",
+    tag: "Work",
+    def: "To keep refining an instruction past the point of improvement; to polish a working prompt until it breaks.",
+    etym: "Back-formed from overwrought ('overworked; agitated') on the maker-suffix -wright. Deliberately a homophone of computing's overwrite -- over-editing destroys the version that worked.",
+    quote: "It ran perfectly on Tuesday. Then I overwrighted it all weekend and now it won't hold the format.",
+    why: "Three words collapse into one pun -- overwrought, overwrite, wright -- and every maker recognises the sin."
+  },
+  {
+    word: "Handfinish",
+    pos: "verb & noun",
+    pron: "/ˈhænd.fɪn.ɪʃ/",
+    vol: "VI",
+    tag: "Work",
+    def: "To give machine output a final pass by hand; the human coat of care that turns generated into made.",
+    etym: "From furniture-making, where machine-cut pieces are hand-finished -- sanded, fitted, signed.",
+    quote: "Ship nothing raw. Everything gets a handfinish, even the emails.",
+    why: "It imports an existing craft distinction -- machine-cut versus hand-finished -- that already carries exactly the value judgement the age needs."
+  },
+  {
+    word: "Grainsense",
+    pos: "noun",
+    pron: "/ˈɡreɪn.sɛns/",
+    vol: "VI",
+    tag: "Work",
+    def: "A practised feel for a particular machine's tendencies -- where it drifts, what it over-does, which phrasings it obeys; the promptwright's knowledge of the material.",
+    etym: "From grain (Latin granum, 'seed'; the direction of fibres in wood) + sense. After the carpenter's first rule: work with the grain.",
+    quote: "Grainsense is why her prompts transfer badly -- they're tuned to one model's wood.",
+    why: "The thesis of the whole volume in a single word: this is a material craft, and the material has a grain."
+  },
+  {
+    word: "Beigevoice",
+    pos: "noun",
+    pron: "/ˈbeɪʒ.vɔɪs/",
+    vol: "VI",
+    tag: "Digital",
+    def: "The default register of machine prose: affable, tidy, featureless; the sound of no one in particular.",
+    etym: "From beige (French; originally the colour of undyed wool) + voice. Undyed is precisely the point.",
+    quote: "The first draft always arrives in beigevoice. The craft is dyeing it.",
+    why: "Beige's own etymology -- wool before the dye -- makes the metaphor exact: the machine's voice is not bad, merely uncoloured, and colouring it is the promptwright's job."
+  },
+  {
+    word: "Fauxluent",
+    pos: "adjective",
+    pron: "/ˈfəʊ.lu.ənt/",
+    vol: "VI",
+    tag: "Digital",
+    def: "Of machine prose: fluent, confident and wrong; possessing the rhythm of sense without the substance.",
+    etym: "A blend of faux (French, 'false') and fluent (Latin fluere, 'to flow'); the seam falls on the shared glide.",
+    quote: "The report was pure fauxluency -- beautifully paragraphed nonsense.",
+    why: "It supplies a precise adjective where readers currently need a whole sentence, and the faint French sneer of faux does half the work."
+  },
+  {
+    word: "Confabulence",
+    pos: "noun",
+    pron: "/kənˈfæb.jʊ.ləns/",
+    vol: "VI",
+    tag: "Digital",
+    def: "The serene, unearned confidence with which a machine delivers an invented fact.",
+    etym: "From confabulation -- the psychiatric term for fabricated memories recounted sincerely (Latin confabulari, 'to talk together') -- with the ending of confidence.",
+    quote: "Ask it for case law and you get pure confabulence: citations that never existed, delivered like gospel.",
+    why: "It borrows clinical authority from confabulation, and is more accurate than 'hallucination', which wrongly implies the machine perceives anything at all."
+  },
+  {
+    word: "Threadfray",
+    pos: "noun",
+    pron: "/ˈθrɛd.freɪ/",
+    vol: "VI",
+    tag: "Digital",
+    def: "The gradual unravelling of a machine's grip on a long task; the point at which instructions given early no longer hold.",
+    etym: "From thread (Old English þrǣd, 'twisted filament', adopted for conversations) + fray (ultimately Latin fricare, 'to rub' -- cloth wearing thin). Two weaving words.",
+    quote: "Forty turns in, the tone brief was gone -- classic threadfray -- so I started fresh with a tighter soulfile.",
+    why: "It names the most common failure a promptwright manages, in the register of cloth and loom rather than jargon."
+  },
+  {
+    word: "Giftline",
+    pos: "noun",
+    pron: "/ˈɡɪft.laɪn/",
+    vol: "VI",
+    tag: "Digital",
+    def: "A line, phrase or idea in machine output that was never asked for but proves better than what was; the happy accident kept in the final work.",
+    etym: "From gift (Old Norse gipt) + line; after the woodworker's habit of following a flaw in the grain.",
+    quote: "The whole tagline was a giftline -- I asked for ten safe options and kept the accident.",
+    why: "A craft's vocabulary needs at least one word of grace. Every honest promptwright has kept a giftline, and felt faintly guilty."
+  },
+  {
+    word: "Blankfright",
+    pos: "noun",
+    pron: "/ˈblæŋk.fraɪt/",
+    vol: "VI",
+    tag: "Feelings",
+    def: "The dread of the empty prompt box; stage fright before an infinitely capable audience of one.",
+    etym: "From blank (French blanc, 'white') + fright (Old English fyrhto), after stage fright.",
+    quote: "Twenty minutes of blankfright -- then I just typed what I'd say to a colleague.",
+    why: "It records a surprising discovery: talking to machines has revived one of the oldest human fears, the blank page -- now with something watching."
+  },
+  {
+    word: "Sisyphrase",
+    pos: "verb",
+    pron: "/ˈsɪs.ɪ.freɪz/",
+    vol: "VI",
+    tag: "Feelings",
+    def: "To re-explain the same context, constraints or preferences to a machine over and over, each fresh conversation rolling the boulder from the bottom of the hill.",
+    etym: "From Sisyphus (the king condemned to eternal repetition) + phrase (Greek phrasis, 'speech'); the seam falls on the shared s.",
+    quote: "I spent the morning sisyphrasing the brand voice to it. Fourth time this week.",
+    why: "The mock-heroic register turns a daily tedium into a shared joke -- which is how a word earns repetition of its own."
+  },
+  {
+    word: "Truthflinch",
+    pos: "noun",
+    pron: "/ˈtruːθ.flɪntʃ/",
+    vol: "VI",
+    tag: "Feelings",
+    def: "The small jolt of discovering that a smooth, plausible machine answer is false; the moment trust recalibrates.",
+    etym: "From truth (Old English trēowth, 'faithfulness') + flinch (Old French flenchir, 'to bend').",
+    quote: "I had my first truthflinch when it invented a Dickens quote. Now I verifidget everything.",
+    why: "It names the emotional half of verification -- and thereby teaches the lesson better than any warning label."
+  },
+  {
+    word: "Verifidget",
+    pos: "verb",
+    pron: "/ˌvɛr.ɪˈfɪdʒ.ɪt/",
+    vol: "VI",
+    tag: "Feelings",
+    def: "To check machine output compulsively, switching between claim and source, unable to rest in trust.",
+    etym: "From verify (Latin verus, 'true' + facere, 'to make') + fidget (from obsolete fidge, 'to twitch').",
+    quote: "I verifidget every date it gives me now. Burnt once, twitchy forever.",
+    why: "It catches the physical restlessness of the new literacy; the sound mirrors the sense -- three quick syllables that won't sit still."
+  },
+  {
+    word: "Soulfile",
+    pos: "noun",
+    pron: "/ˈsəʊl.faɪl/",
+    vol: "VI",
+    tag: "Digital",
+    def: "The document a person keeps that teaches a machine who they are -- voice, history, preferences, standards; the self, made portable and legible.",
+    etym: "From soul (Old English sāwol) + file (Latin filum, 'thread').",
+    quote: "New model, same me. I hand over the soulfile and we're working in minutes.",
+    why: "The object already exists in every serious practitioner's workflow and has no name; and file's own etymology -- a thread -- quietly stitches it to threadfray at the loom."
+  },
+  {
+    word: "Vibewright",
+    pos: "noun",
+    pron: "/ˈvaɪb.raɪt/",
+    vol: "VI",
+    tag: "Personalities",
+    def: "One who prompts entirely by feel -- no method, no promptbook, no second draft -- and sometimes, infuriatingly, prospers.",
+    etym: "From vibe (a 1960s clipping of vibration) + -wright, the maker-suffix worn ironically.",
+    quote: "He's a vibewright: types one chaotic sentence, gets gold, and cannot explain or repeat it.",
+    why: "Every craft names its gifted amateur. The ironic -wright places the word inside the family while raising an eyebrow at it."
+  },
+  {
+    word: "Mindshoring",
+    pos: "noun",
+    pron: "/ˈmaɪnd.ʃɔː.rɪŋ/",
+    vol: "VI",
+    tag: "Work",
+    def: "The offshoring of one's own thinking to a machine; the outsourcing not of tasks but of judgement.",
+    etym: "From mind (Old English gemynd) + offshoring (1980s business jargon), clipped at the seam.",
+    quote: "Half the class wasn't using AI as a tool. They were mindshoring the entire essay.",
+    why: "It carries the exact moral weather of offshoring -- cheaper, faster, and something quietly lost -- without a syllable of lecture."
+  },
+  {
+    word: "Ghostwrought",
+    pos: "adjective",
+    pron: "/ˈɡəʊst.rɔːt/",
+    vol: "VI",
+    tag: "Work",
+    def: "Of work: produced entirely by a machine yet presented under a human name; ghostwritten by something that was never alive.",
+    etym: "From ghostwriter (one who writes under another's name, attested 1880s) + wrought (archaic past participle of work). The second member of the promptwrought family: wrought marks the making, ghost marks the missing maker.",
+    quote: "The essay was ghostwrought -- his name, its voice, nobody home.",
+    why: "It rides ghostwriter, which already means 'someone else wrote this under your name', and answers promptwrought across the volume: one adjective for output shaped with evident intent, one for a byline with nobody behind it."
+  },
+  {
+    word: "Slopsettler",
+    pos: "noun",
+    pron: "/ˈslɒp.sɛt.lə/",
+    vol: "VI",
+    tag: "Personalities",
+    def: "One who accepts the machine's first output uncritically; a settler in the land of good-enough.",
+    etym: "From slop (Middle English sloppe, 'mud, loose mess'; latterly, generated filler content) + settler, with a pun on settling for.",
+    quote: "Don't be a slopsettler. The first draft is the machine's opening offer, not its best.",
+    why: "It rides the established currency of slop and converts it into a judgement about people rather than machines -- which is where the fault mostly lies."
+  },
+  {
+    word: "Unprompted",
+    pos: "adjective (re-minted)",
+    pron: "/ʌnˈprɒm(p).tɪd/",
+    vol: "VI",
+    tag: "Work",
+    def: "Of work: made entirely by hand and mind, without machine assistance; carried as a quiet mark of provenance, as organic is for food.",
+    etym: "Standard English unprompted ('without being asked'), re-minted as a label of quality rather than coined afresh.",
+    quote: "The dedication read simply: unprompted.",
+    why: "The volume's one deliberate re-minting rather than pure coinage -- proof the craft cuts both ways, and that knowing when not to prompt is part of promptwrighting."
   }
 ];
 
