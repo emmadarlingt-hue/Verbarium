@@ -1388,8 +1388,9 @@ const words = [
     etym: "Standard English unprompted ('without being asked'), re-minted as a label of quality rather than coined afresh.",
     quote: "The dedication read simply: unprompted.",
     why: "The volume's one deliberate re-minting rather than pure coinage -- proof the craft cuts both ways, and that knowing when not to prompt is part of promptwrighting."
-  }
-    [
+  },
+  // ======== Vol. VII — Wrought Together (added 12 Aug 2026) ========
+
   {
     word: "Delegret",
     pos: "noun",
@@ -1676,8 +1677,6 @@ const words = [
     quote: "Mid-flow with the agents, a wroughtache: she closed the laptop and sharpened a pencil.",
     why: "Built entirely from Old English, it sounds centuries older than the condition it names — the right register for a nostalgia. It also rhymes with heartache, and knows it. Kin to unprompted: that names the work, this names the want."
   }
-]
-
 ];
 
 let activeFilter = 'all';
