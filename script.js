@@ -1243,7 +1243,7 @@ const words = [
     tag: "Digital",
     def: "Of machine prose: fluent, confident and wrong; possessing the rhythm of sense without the substance.",
     etym: "A blend of faux (French, 'false') and fluent (Latin fluere, 'to flow'); the seam falls on the shared glide.",
-    quote: "The report was pure fauxluency -- beautifully paragraphed nonsense.",
+    quote: "The report was flawlessly fauxluent -- beautifully paragraphed nonsense.",
     why: "It supplies a precise adjective where readers currently need a whole sentence, and the faint French sneer of faux does half the work."
   },
   {
