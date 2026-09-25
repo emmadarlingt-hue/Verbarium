@@ -201,6 +201,10 @@ body {
 }
 
 /* ── Expanded entry ── */
+#expanded-area {
+  scroll-margin-top: 24px;
+}
+
 .word-expanded {
   background: var(--cream-card);
   border: 1px solid var(--burg-light);
@@ -215,6 +219,12 @@ body {
   font-weight: 700;
   color: var(--ink);
   line-height: 1.1;
+}
+
+/* Focus lands here when an entry opens, to mark the reading position.
+   It isn't a control, so it doesn't need a focus ring. */
+.exp-word:focus {
+  outline: none;
 }
 
 .exp-meta {

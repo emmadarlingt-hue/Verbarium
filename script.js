@@ -1708,7 +1708,7 @@ function renderExpanded() {
   if (!w) return;
   area.innerHTML =
     '<div class="word-expanded">' +
-    '<div class="exp-word">' + w.word + '</div>' +
+    '<div class="exp-word" tabindex="-1">' + w.word + '</div>' +
     '<div class="exp-meta">' +
     '<span class="exp-pos">' + w.pos + '</span>' +
     '<span class="exp-pron">' + w.pron + '</span>' +
@@ -1721,9 +1721,35 @@ function renderExpanded() {
     '<button class="exp-close" id="close-btn">Close entry</button>' +
     '</div>';
   document.getElementById('close-btn').addEventListener('click', function() {
+    var closed = expandedWord;
     expandedWord = null;
     render();
+    returnToCard(closed);
   });
+}
+
+// Smooth scrolling for most readers, but an instant jump for anyone whose
+// system is set to reduce motion.
+function scrollBehavior() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+}
+
+// Brings the open entry to the top of the screen and puts the keyboard focus
+// on its headword, so the reader lands on the word they just clicked.
+// preventScroll stops the focus from jumping the page and cutting the scroll short.
+function showExpanded() {
+  document.getElementById('expanded-area').scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+  document.querySelector('#expanded-area .exp-word').focus({ preventScroll: true });
+}
+
+// After an entry closes, finds the card for that word and scrolls it to the
+// middle of the screen, so the reader is back where they were in the grid.
+// The grid has just been redrawn, so this has to look the card up afresh.
+function returnToCard(name) {
+  var card = document.querySelector('.word-card[data-word="' + name + '"]');
+  if (card) {
+    card.scrollIntoView({ block: 'center', behavior: scrollBehavior() });
+  }
 }
 
 function renderGrid() {
@@ -1752,8 +1778,15 @@ function renderGrid() {
   for (var j = 0; j < cards.length; j++) {
     cards[j].addEventListener('click', function() {
       var name = this.dataset.word;
-      expandedWord = expandedWord === name ? null : name;
-      render();
+      if (expandedWord === name) {
+        expandedWord = null;
+        render();
+        returnToCard(name);
+      } else {
+        expandedWord = name;
+        render();
+        showExpanded();
+      }
     });
   }
 }
