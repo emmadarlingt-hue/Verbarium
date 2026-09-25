@@ -118,7 +118,12 @@ body {
 }
 
 /* ── Word cards ── */
+/* Cards are links (<a href="#word">); the first three lines undo the
+   browser's link styling so they look exactly as they did as divs. */
 .word-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
   background: var(--cream-card);
   border: 1px solid var(--rule);
   border-radius: 6px;

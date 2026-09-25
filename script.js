@@ -1681,6 +1681,14 @@ const words = [
 
 let activeFilter = 'all';
 let expandedWord = null;
+const baseTitle = document.title;
+
+// Turns a headword into the form used in links: lowercase, with any run of
+// characters that aren't letters or digits replaced by a single hyphen,
+// so "Promptwright" becomes "promptwright" and the link is #promptwright.
+function slugify(word) {
+  return word.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
 
 function getFiltered() {
   const q = document.getElementById('search').value.toLowerCase();
@@ -1702,10 +1710,12 @@ function renderExpanded() {
   const area = document.getElementById('expanded-area');
   if (!expandedWord) {
     area.innerHTML = '';
+    document.title = baseTitle;
     return;
   }
   const w = words.find(function(w) { return w.word === expandedWord; });
   if (!w) return;
+  document.title = w.word + ' · ' + baseTitle;
   area.innerHTML =
     '<div class="word-expanded">' +
     '<div class="exp-word" tabindex="-1">' + w.word + '</div>' +
@@ -1722,10 +1732,36 @@ function renderExpanded() {
     '</div>';
   document.getElementById('close-btn').addEventListener('click', function() {
     var closed = expandedWord;
+    clearHash();
     expandedWord = null;
     render();
     returnToCard(closed);
   });
+}
+
+// Opens the entry named in the address bar (verbarium/#promptwright), or
+// closes the open entry if the address names no word. Runs once on load and
+// again whenever the hash changes: clicking a card, or pressing Back/Forward.
+function openFromHash() {
+  var slug = decodeURIComponent(location.hash.slice(1));
+  var match = words.find(function(w) { return slugify(w.word) === slug; });
+  var previous = expandedWord;
+  expandedWord = match ? match.word : null;
+  render();
+  if (expandedWord) {
+    showExpanded();
+  } else if (previous) {
+    returnToCard(previous);
+  }
+}
+
+// Takes the word out of the address bar when an entry is closed, so the
+// link goes back to the plain page. This uses the history API rather than
+// setting location.hash = '', which would leave a stray "#" behind,
+// jump to the top of the page and fire another hashchange.
+function clearHash() {
+  if (!location.hash) return;
+  history.pushState(null, '', location.pathname + location.search);
 }
 
 // Smooth scrolling for most readers, but an instant jump for anyone whose
@@ -1763,30 +1799,32 @@ function renderGrid() {
   for (var i = 0; i < filtered.length; i++) {
     var w = filtered[i];
     html +=
-      '<div class="word-card" data-word="' + w.word + '">' +
+      '<a class="word-card" href="#' + slugify(w.word) + '" data-word="' + w.word + '">' +
       '<div class="card-vol">Vol. ' + w.vol + ' - ' + w.tag + '</div>' +
       '<div class="card-word">' + w.word + '</div>' +
       '<div class="card-pos">' + w.pos + '</div>' +
       '<div class="card-pron">' + w.pron + '</div>' +
       '<div class="card-def">' + w.def + '</div>' +
       '<span class="card-tag">' + w.tag + '</span>' +
-      '</div>';
+      '</a>';
   }
   grid.innerHTML = html;
 
   var cards = grid.querySelectorAll('.word-card');
   for (var j = 0; j < cards.length; j++) {
-    cards[j].addEventListener('click', function() {
+    cards[j].addEventListener('click', function(e) {
+      // Cmd-, Ctrl- and Shift-clicks open the link in a new tab or window as usual.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var name = this.dataset.word;
       if (expandedWord === name) {
+        e.preventDefault();
+        clearHash();
         expandedWord = null;
         render();
         returnToCard(name);
-      } else {
-        expandedWord = name;
-        render();
-        showExpanded();
       }
+      // Any other card is an ordinary link: following it changes the hash,
+      // and openFromHash opens the entry.
     });
   }
 }
@@ -1803,14 +1841,18 @@ document.querySelectorAll('.vb-filter').forEach(function(btn) {
       b.classList.remove('active');
     });
     btn.classList.add('active');
+    clearHash();
     expandedWord = null;
     render();
   });
 });
 
 document.getElementById('search').addEventListener('input', function() {
+  clearHash();
   expandedWord = null;
   render();
 });
 
-render();
+window.addEventListener('hashchange', openFromHash);
+
+openFromHash();
