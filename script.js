@@ -1728,8 +1728,15 @@ function renderExpanded() {
     '<div class="exp-section"><div class="exp-label">Etymology</div><div class="exp-text">' + w.etym + '</div></div>' +
     '<div class="exp-section"><div class="exp-label">In context</div><div class="exp-quote">"' + w.quote + '"</div></div>' +
     '<div class="exp-section"><div class="exp-label">Why it could stick</div><div class="exp-why">' + w.why + '</div></div>' +
+    '<div class="exp-actions">' +
+    '<button class="exp-copy" id="copy-btn">Copy link</button>' +
     '<button class="exp-close" id="close-btn">Close entry</button>' +
+    '</div>' +
+    '<div class="exp-link-fallback" id="link-fallback" role="status"></div>' +
     '</div>';
+  document.getElementById('copy-btn').addEventListener('click', function() {
+    copyLink(w.word, this);
+  });
   document.getElementById('close-btn').addEventListener('click', function() {
     var closed = expandedWord;
     clearHash();
@@ -1762,6 +1769,40 @@ function openFromHash() {
 function clearHash() {
   if (!location.hash) return;
   history.pushState(null, '', location.pathname + location.search);
+}
+
+// The full address of one entry, e.g. https://…/#promptwright. It's built
+// from the page's address rather than copied from the address bar, so it's
+// always the clean link for this word.
+function entryLink(word) {
+  return location.href.split('#')[0] + '#' + slugify(word);
+}
+
+// Copies the entry's link to the clipboard and changes the button to say so,
+// then puts the label back after a moment. If the browser won't allow it
+// (an older browser, or clipboard access blocked), shows the link as text instead.
+function copyLink(word, button) {
+  var link = entryLink(word);
+  if (!navigator.clipboard) {
+    showLinkText(link);
+    return;
+  }
+  navigator.clipboard.writeText(link).then(function() {
+    button.textContent = 'Link copied';
+    setTimeout(function() { button.textContent = 'Copy link'; }, 2500);
+  }, function() {
+    showLinkText(link);
+  });
+}
+
+// Shows the link as plain text under the buttons and selects it, so the
+// reader can copy it by hand when the clipboard can't be used.
+function showLinkText(link) {
+  var box = document.getElementById('link-fallback');
+  box.innerHTML = 'Copy this link: <span class="exp-link-text"></span>';
+  var text = box.querySelector('.exp-link-text');
+  text.textContent = link;
+  window.getSelection().selectAllChildren(text);
 }
 
 // Smooth scrolling for most readers, but an instant jump for anyone whose

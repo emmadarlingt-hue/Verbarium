@@ -289,8 +289,15 @@ body {
   margin-top: 8px;
 }
 
-.exp-close {
+.exp-actions {
   margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.exp-copy,
+.exp-close {
   font-size: 12px;
   color: var(--burg);
   cursor: pointer;
@@ -301,8 +308,27 @@ body {
   padding: 0;
 }
 
+.exp-copy:hover,
 .exp-close:hover {
   text-decoration: underline;
+}
+
+/* Shown only if the clipboard can't be used: the link as plain text,
+   selectable in one go, wrapping rather than overflowing on a phone. */
+.exp-link-fallback {
+  font-size: 12px;
+  color: var(--ink-mid);
+  overflow-wrap: anywhere;
+}
+
+.exp-link-fallback:not(:empty) {
+  margin-top: 12px;
+}
+
+.exp-link-text {
+  color: var(--ink);
+  -webkit-user-select: all;
+  user-select: all;
 }
 
 /* ── Footer ── */
