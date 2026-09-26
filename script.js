@@ -1681,6 +1681,14 @@ const words = [
 
 let activeFilter = 'all';
 let expandedWord = null;
+const baseTitle = document.title;
+
+// Turns a headword into the form used in links: lowercase, with any run of
+// characters that aren't letters or digits replaced by a single hyphen,
+// so "Promptwright" becomes "promptwright" and the link is #promptwright.
+function slugify(word) {
+  return word.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
 
 function getFiltered() {
   const q = document.getElementById('search').value.toLowerCase();
@@ -1702,13 +1710,15 @@ function renderExpanded() {
   const area = document.getElementById('expanded-area');
   if (!expandedWord) {
     area.innerHTML = '';
+    document.title = baseTitle;
     return;
   }
   const w = words.find(function(w) { return w.word === expandedWord; });
   if (!w) return;
+  document.title = w.word + ' · ' + baseTitle;
   area.innerHTML =
     '<div class="word-expanded">' +
-    '<div class="exp-word">' + w.word + '</div>' +
+    '<div class="exp-word" tabindex="-1">' + w.word + '</div>' +
     '<div class="exp-meta">' +
     '<span class="exp-pos">' + w.pos + '</span>' +
     '<span class="exp-pron">' + w.pron + '</span>' +
@@ -1718,12 +1728,105 @@ function renderExpanded() {
     '<div class="exp-section"><div class="exp-label">Etymology</div><div class="exp-text">' + w.etym + '</div></div>' +
     '<div class="exp-section"><div class="exp-label">In context</div><div class="exp-quote">"' + w.quote + '"</div></div>' +
     '<div class="exp-section"><div class="exp-label">Why it could stick</div><div class="exp-why">' + w.why + '</div></div>' +
+    '<div class="exp-actions">' +
+    '<button class="exp-copy" id="copy-btn">Copy link</button>' +
     '<button class="exp-close" id="close-btn">Close entry</button>' +
+    '</div>' +
+    '<div class="exp-link-fallback" id="link-fallback" role="status"></div>' +
     '</div>';
+  document.getElementById('copy-btn').addEventListener('click', function() {
+    copyLink(w.word, this);
+  });
   document.getElementById('close-btn').addEventListener('click', function() {
+    var closed = expandedWord;
+    clearHash();
     expandedWord = null;
     render();
+    returnToCard(closed);
   });
+}
+
+// Opens the entry named in the address bar (verbarium/#promptwright), or
+// closes the open entry if the address names no word. Runs once on load and
+// again whenever the hash changes: clicking a card, or pressing Back/Forward.
+function openFromHash() {
+  var slug = decodeURIComponent(location.hash.slice(1));
+  var match = words.find(function(w) { return slugify(w.word) === slug; });
+  var previous = expandedWord;
+  expandedWord = match ? match.word : null;
+  render();
+  if (expandedWord) {
+    showExpanded();
+  } else if (previous) {
+    returnToCard(previous);
+  }
+}
+
+// Takes the word out of the address bar when an entry is closed, so the
+// link goes back to the plain page. This uses the history API rather than
+// setting location.hash = '', which would leave a stray "#" behind,
+// jump to the top of the page and fire another hashchange.
+function clearHash() {
+  if (!location.hash) return;
+  history.pushState(null, '', location.pathname + location.search);
+}
+
+// The full address of one entry, e.g. https://…/#promptwright. It's built
+// from the page's address rather than copied from the address bar, so it's
+// always the clean link for this word.
+function entryLink(word) {
+  return location.href.split('#')[0] + '#' + slugify(word);
+}
+
+// Copies the entry's link to the clipboard and changes the button to say so,
+// then puts the label back after a moment. If the browser won't allow it
+// (an older browser, or clipboard access blocked), shows the link as text instead.
+function copyLink(word, button) {
+  var link = entryLink(word);
+  if (!navigator.clipboard) {
+    showLinkText(link);
+    return;
+  }
+  navigator.clipboard.writeText(link).then(function() {
+    button.textContent = 'Link copied';
+    setTimeout(function() { button.textContent = 'Copy link'; }, 2500);
+  }, function() {
+    showLinkText(link);
+  });
+}
+
+// Shows the link as plain text under the buttons and selects it, so the
+// reader can copy it by hand when the clipboard can't be used.
+function showLinkText(link) {
+  var box = document.getElementById('link-fallback');
+  box.innerHTML = 'Copy this link: <span class="exp-link-text"></span>';
+  var text = box.querySelector('.exp-link-text');
+  text.textContent = link;
+  window.getSelection().selectAllChildren(text);
+}
+
+// Smooth scrolling for most readers, but an instant jump for anyone whose
+// system is set to reduce motion.
+function scrollBehavior() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+}
+
+// Brings the open entry to the top of the screen and puts the keyboard focus
+// on its headword, so the reader lands on the word they just clicked.
+// preventScroll stops the focus from jumping the page and cutting the scroll short.
+function showExpanded() {
+  document.getElementById('expanded-area').scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+  document.querySelector('#expanded-area .exp-word').focus({ preventScroll: true });
+}
+
+// After an entry closes, finds the card for that word and scrolls it to the
+// middle of the screen, so the reader is back where they were in the grid.
+// The grid has just been redrawn, so this has to look the card up afresh.
+function returnToCard(name) {
+  var card = document.querySelector('.word-card[data-word="' + name + '"]');
+  if (card) {
+    card.scrollIntoView({ block: 'center', behavior: scrollBehavior() });
+  }
 }
 
 function renderGrid() {
@@ -1737,23 +1840,32 @@ function renderGrid() {
   for (var i = 0; i < filtered.length; i++) {
     var w = filtered[i];
     html +=
-      '<div class="word-card" data-word="' + w.word + '">' +
+      '<a class="word-card" href="#' + slugify(w.word) + '" data-word="' + w.word + '">' +
       '<div class="card-vol">Vol. ' + w.vol + ' - ' + w.tag + '</div>' +
       '<div class="card-word">' + w.word + '</div>' +
       '<div class="card-pos">' + w.pos + '</div>' +
       '<div class="card-pron">' + w.pron + '</div>' +
       '<div class="card-def">' + w.def + '</div>' +
       '<span class="card-tag">' + w.tag + '</span>' +
-      '</div>';
+      '</a>';
   }
   grid.innerHTML = html;
 
   var cards = grid.querySelectorAll('.word-card');
   for (var j = 0; j < cards.length; j++) {
-    cards[j].addEventListener('click', function() {
+    cards[j].addEventListener('click', function(e) {
+      // Cmd-, Ctrl- and Shift-clicks open the link in a new tab or window as usual.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var name = this.dataset.word;
-      expandedWord = expandedWord === name ? null : name;
-      render();
+      if (expandedWord === name) {
+        e.preventDefault();
+        clearHash();
+        expandedWord = null;
+        render();
+        returnToCard(name);
+      }
+      // Any other card is an ordinary link: following it changes the hash,
+      // and openFromHash opens the entry.
     });
   }
 }
@@ -1770,14 +1882,18 @@ document.querySelectorAll('.vb-filter').forEach(function(btn) {
       b.classList.remove('active');
     });
     btn.classList.add('active');
+    clearHash();
     expandedWord = null;
     render();
   });
 });
 
 document.getElementById('search').addEventListener('input', function() {
+  clearHash();
   expandedWord = null;
   render();
 });
 
-render();
+window.addEventListener('hashchange', openFromHash);
+
+openFromHash();
