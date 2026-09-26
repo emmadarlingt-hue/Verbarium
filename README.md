@@ -28,7 +28,7 @@ and JavaScript, no frameworks, no build step.
 
 ### Vol. VI · Promptwrought
 
-The newest volume, and the one that outgrew the shelf. Twenty words for the
+Volume VI is the one that outgrew the shelf. Twenty words for the
 craft of shaping language to direct a machine, built on real etymological bones
 — Old English, Greek, the Victorian theatre, the carpenter's workshop.
 
