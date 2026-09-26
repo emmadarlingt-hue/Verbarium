@@ -10,7 +10,7 @@ deserves to exist.
 It is also the place where I taught myself to build for the web: plain HTML, CSS
 and JavaScript, no frameworks, no build step.
 
-**Live site:** https://verbarium.netlify.app *(replace with your actual URL)*
+**Live site:** https://verbarium-mmxxvi.netlify.app
 
 ---
 
@@ -53,7 +53,7 @@ Its central coinages:
 |--------------|--------------------------------------------------------|
 | `index.html` | Page structure, search box, volume and theme filters |
 | `style.css` | All styling — cream and burgundy, Playfair Display and Source Serif 4, responsive at 600px and 1025px |
-| `script.js` | The `words` array (all entries as data) plus the render, search, filter and expand logic |
+| `script.js` | The `words` array (all entries as data) plus the render, search, filter, expand and word-link logic |
 
 Content and design are deliberately separated: every entry is a plain object in
 the `words` array, so adding a word never means touching the layout.
@@ -78,6 +78,17 @@ the `words` array, so adding a word never means touching the layout.
 2. Add a filter button in `index.html`:
    `<button class="vb-filter" data-filter="VI">Vol. VI</button>`
 3. Commit and push — Netlify publishes automatically.
+
+## Linking to a word
+
+Every entry has its own address: the headword in lowercase, after a `#`.
+
+https://verbarium-mmxxvi.netlify.app/#promptwright
+
+Following the link opens that entry. An open entry also has a **Copy link**
+button that puts its address on the clipboard, ready to paste into a newsletter
+or a message. A headword with a space or hyphen gets a hyphen in its link, so
+nothing needs setting up when a new word is added.
 
 ## Running it locally
 
