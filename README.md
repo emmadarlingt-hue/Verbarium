@@ -3,7 +3,7 @@
 *A personal lexicon · Emma Darling · MMXXVI*
 
 Verbarium is a hand-built dictionary of coined words — inventions for the things
-we all recognise but have no name for. Around 110 entries across six volumes,
+we all recognise but have no name for. 152 entries across seven volumes,
 each with a definition, etymology, example of use, and a note on why the word
 deserves to exist.
 
@@ -20,10 +20,11 @@ and JavaScript, no frameworks, no build step.
 |------|-------------------------------------------|---------|
 | I | Ten coinages for the present age | 10 |
 | II | Coinages for love, family & company | 30 |
-| III | — | — |
-| IV | — | — |
-| V | — | — |
+| III | — | 20 |
+| IV | — | 26 |
+| V | — | 20 |
 | VI | **Promptwrought** — the craft of instructing machines | 20 |
+| VII | **Wrought Together** — life beside the machines | 26 |
 
 ### Vol. VI · Promptwrought
 
